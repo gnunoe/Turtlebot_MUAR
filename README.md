@@ -34,18 +34,18 @@ PRIMERA ENTREGA (Robot, sensores y mundo)
 
 SEGUNDA ENTREGA (Navegación básica y detección de obstáculos)
 
-  Ejecutar el siguiente comando donde ROBOT_INITIAL_POSE es la posicion en la escena (colocarlo en la esquina):
+  Ejecutar el siguiente comando donde ROBOT_INITIAL_POSE es la posicion en la escena (colocarlo en la esquina). Se carga uno de los mapas finales por defecto (ToDo: No hace spawn de dos objetos):
   
     ROBOT_INITIAL_POSE="-x 8.5 -y -8.5" roslaunch turtlebot_gazebo turtlebot_lab.launch
     
-  Para genera mapa aleatorio usuando plugin, ejecutar siguiente comando.
+  Para genera el aruco ejecutar siguiente comando, donde arucoNum es el número del aruco (ToDo:Se carga otro objeto cada vez que hace spawn).
     
-    roslaunch labrob_gazebo plugin_sim.launch 
+    roslaunch labrob_gazebo plugin_sim_aruco.launch arucoNum:=8 
    
-  Activar stack de navegación con el siguiente comando
+  Activar stack de navegación + exploración con el siguiente comando
   
-    roslaunch turtlebot_gazebo gmapping_demo_2.launch
+    roslaunch turtlebot_gazebo gmapping_demo_frontier.launch
     
-  Enviar Navigation Goal cercano al Aruco (Principio de misión)
+  Ejecutar scheduler, el cual organizará los pasos de la mision (Buscar Aruco, Explorar y marcar objetos). ToDo: matar proceso por terminal xq esta en un bucle while, necesito depurarlo.
     
-    rosrun simple_navigation_goals simple_navigation_goals
+    rosrun simple_navigation_goals scheduler

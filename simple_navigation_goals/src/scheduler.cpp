@@ -46,7 +46,7 @@ int main(int argc, char** argv){
   
   ROS_INFO("Stage 1: Searching for the Aruco Marker...");
   //start navigation 
-  system("rosrun simple_navigation_goals simple_navigation_goals -18 18");
+  system("rosrun simple_navigation_goals simple_navigation_goals -17 17");
 
   ros::Rate loop_rate(10);
   int counter = 0;
