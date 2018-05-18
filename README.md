@@ -55,7 +55,7 @@ SEGUNDA ENTREGA (Navegación básica y detección de obstáculos)
 
   Para genera el aruco ejecutar siguiente comando, donde arucoNum es el número del aruco (ToDo:Se carga otro objeto cada vez que hace spawn).
     
-    roslaunch labrob_gazebo plugin_sim_aruco.launch arucoNum:=8 
+    roslaunch labrob_gazebo plugin_sim_aruco.launch arucoNum:=6 
    
   Activar stack de navegación + exploración con el siguiente comando
   
