@@ -20,6 +20,8 @@ INSTALAR ANTES LOS SIGUIENTES PAQUETES:
     
     ros-kinetic-frontier-exploration
     
+    ros-kinetic-aruco-ros
+    
 INCLUIR EN EL .bashrc LOS SIGUIENTES COMANDOS:
 
     export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/labrob_gazebo/models
