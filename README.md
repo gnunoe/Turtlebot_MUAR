@@ -22,6 +22,13 @@ INSTALAR ANTES LOS SIGUIENTES PAQUETES:
     
     ros-kinetic-aruco-ros
     
+INSTALAR DARKNET-YOLO
+
+  Debido al almacenamiento limitado, el paquete de reconocimento de objetos se debe descargar en el enlace https://drive.google.com/open?id=1raN7mVBISUNW29vJXJtU6k76f0SNX7g5. Para compilarlo, añadir la carpeta darknet_ros al /src y ejecutar el siguientew comando:
+
+    catkin_make -DCMAKE_BUILD_TYPE=Release --pkg darknet_ros
+
+
 INCLUIR EN EL .bashrc LOS SIGUIENTES COMANDOS:
 
     export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/labrob_gazebo/models
@@ -42,6 +49,10 @@ SEGUNDA ENTREGA (Navegación básica y detección de obstáculos)
   
     ROBOT_INITIAL_POSE="-x 8.5 -y -8.5" roslaunch turtlebot_gazebo turtlebot_lab.launch
     
+  Ejecutar el YOLO para reconocimiento de objetos
+
+    roslaunch darknet_ros yolo_lab.launch
+
   Para genera el aruco ejecutar siguiente comando, donde arucoNum es el número del aruco (ToDo:Se carga otro objeto cada vez que hace spawn).
     
     roslaunch labrob_gazebo plugin_sim_aruco.launch arucoNum:=8 
