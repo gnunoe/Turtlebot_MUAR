@@ -28,6 +28,7 @@
   <include file="$(find aruco_ros)/launch/aruco_detection.launch"/>
 
   <!-- Rviz Visualization -->
-  <node name="RVIZ" pkg="rviz" type="rviz" args=" -d `rospack find turtlebot_gazebo`/rviz/turtlebot_slam_3.rviz" />
+  <arg name="rviz_config_file" value="$(find turtlebot_gazebo)/rviz/turtlebot_slam_3.rviz"/>
+  <node name="RVIZ" pkg="rviz" type="rviz" args=" -d $(arg rviz_config_file)" />
 
 </launch>
