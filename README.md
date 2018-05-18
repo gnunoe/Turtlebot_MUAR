@@ -18,6 +18,8 @@ INSTALAR ANTES LOS SIGUIENTES PAQUETES:
     
     ros-kinetic-ar-track-alvar-msgs
     
+    ros-kinetic-frontier-exploration
+    
 INCLUIR EN EL .bashrc LOS SIGUIENTES COMANDOS:
 
     export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/labrob_gazebo/models
