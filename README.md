@@ -46,21 +46,23 @@ PRIMERA ENTREGA (Robot, sensores y mundo)
 SEGUNDA ENTREGA (Navegación básica y detección de obstáculos)
 
   Ejecutar el siguiente comando donde ROBOT_INITIAL_POSE es la posicion en la escena (colocarlo en la esquina). Se carga uno de los mapas finales por defecto (ToDo: No hace spawn de dos objetos):
+  OJO: A veces image rectification peta, comprobarlo!
   
     ROBOT_INITIAL_POSE="-x 8.5 -y -8.5" roslaunch turtlebot_gazebo turtlebot_lab.launch
+ 
+  Para genera el mapa ejecutar el comando, donde arucoNum es el número del aruco (Si no estan todos los objetos, ejecutarlos varias veces. Se pueden mover todos los objetos a mano para distribuirlos excepto monedas y bombas) 
+  OJO: laas monedas deberian desaparecer, pero no siempre lo hacen. Si el robot ha tocado una y no desaparece, suprimir la moneda de manera manual en gazebo para que continue;
     
-  Ejecutar el YOLO para reconocimiento de objetos
+    roslaunch labrob_gazebo plugin_sim.launch arucoNum:=1 
+ 
+  Ejecutar el YOLO para reconocimiento de objetos (He desactivado la imagen para que vaya menos petado, pero se puede activar en su archivo de configuracion) 
 
     roslaunch darknet_ros yolo_lab.launch
-
-  Para genera el aruco ejecutar siguiente comando, donde arucoNum es el número del aruco (ToDo:Se carga otro objeto cada vez que hace spawn).
-    
-    roslaunch labrob_gazebo plugin_sim_aruco.launch arucoNum:=6 
    
   Activar stack de navegación + exploración con el siguiente comando
   
     roslaunch turtlebot_gazebo gmapping_demo_frontier.launch
     
-  Ejecutar scheduler, el cual organizará los pasos de la mision (Buscar Aruco, Explorar y marcar objetos). ToDo: matar proceso por terminal xq esta en un bucle while, necesito depurarlo.
+  Ejecutar scheduler, el cual organizará los pasos de la mision (Buscar Aruco, Explorar y marcar objetos). 
     
-    rosrun simple_navigation_goals scheduler
+    roslaunch simple_navigation_goals lab_mission.launch
