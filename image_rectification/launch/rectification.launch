@@ -8,6 +8,6 @@
   <rosparam command="load" ns="image_rectification" file="$(find image_rectification)/config/rectification.yaml"/>
 
   <!-- Start image rectification -->
-  <node pkg="image_rectification" type="ImageRectificationNode" name="image_rectification" launch-prefix="$(arg launch_prefix)" output="screen">
+  <node pkg="image_rectification" type="ImageRectificationNode" name="image_rectification" launch-prefix="$(arg launch_prefix)" output="screen" respawn="true">
   </node>
 </launch>
