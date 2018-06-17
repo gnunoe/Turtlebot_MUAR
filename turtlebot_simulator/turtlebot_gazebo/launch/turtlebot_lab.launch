@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
   <!--arg name="world_file"  default="$(find labrob_gazebo)/worlds/labrob.world"/-->
-  <arg name="world_file"  default="$(find labrob_gazebo)/worlds/sim_world.world"/>
-  <!--arg name="world_file"  default="$(find labrob_gazebo)/worlds/final_test.world"/-->
+  <!--arg name="world_file"  default="$(find labrob_gazebo)/worlds/sim_world.world"/-->
+  <arg name="world_file"  default="$(find labrob_gazebo)/worlds/final_test.world"/>
   <arg name="base"      value="$(optenv TURTLEBOT_BASE kobuki)"/> <!-- create, roomba -->
   <arg name="battery"   value="$(optenv TURTLEBOT_BATTERY /proc/acpi/battery/BAT0)"/>  <!-- /proc/acpi/battery/BAT0 --> 
   <arg name="gui" default="true"/>
