@@ -74,11 +74,12 @@ void coinCallback(const gazebo_msgs::ContactsState::ConstPtr& msg)
     verify = "coin";
     std::string toErase;
     toErase = "::chassis::box_collision";
-    if (msg->states.size() == 2){
+    if (msg->states.size() >= 2){
       std::vector<std::string> collision;
 
       std::string collision_2 = msg->states[0].collision2_name;
       std::string collision_1 = msg->states[0].collision1_name;
+      ROS_INFO("Collision between %s and %s", collision_2.c_str(), collision_1.c_str());
       collision.push_back(collision_1);
       collision.push_back(collision_2);
 
@@ -115,11 +116,12 @@ void bombCallback(const gazebo_msgs::ContactsState::ConstPtr& msg)
     verify = "bomb";
     std::string toErase;
     toErase = "::chassis::box_collision";
-    if (msg->states.size() == 2){
+    if (msg->states.size() >= 2){
       std::vector<std::string> collision;
 
       std::string collision_2 = msg->states[0].collision2_name;
       std::string collision_1 = msg->states[0].collision1_name;
+      ROS_INFO("Collision between %s and %s", collision_2.c_str(), collision_1.c_str());
       collision.push_back(collision_1);
       collision.push_back(collision_2);
 
@@ -227,8 +229,8 @@ int main(int argc, char **argv)
   ss_coin << ModelDirectory << coin_directory;
   std::string coin = ss_coin.str();
   std::ifstream in(coin.c_str());
-  //ROS_INFO("I Spawned: %s", coin.c_str());
-  
+  ROS_INFO("coin: %s", coin.c_str());
+  //ROS_INFO("coin: %s", in.rdbuf()); 
 
   std::stringstream ss_bomb;
   ss_bomb << ModelDirectory << bomb_directory;
