@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
   <!--arg name="world_file"  default="$(find labrob_gazebo)/worlds/labrob.world"/-->
-  <!--arg name="world_file"  default="$(find labrob_gazebo)/worlds/sim_world.world"/-->
-  <arg name="world_file"  default="$(find labrob_gazebo)/worlds/final_test.world"/>
+  <arg name="world_file"  default="$(find labrob_gazebo)/worlds/sim_world.world"/>
+  <!--arg name="world_file"  default="$(find labrob_gazebo)/worlds/final_test.world"/-->
   <arg name="base"      value="$(optenv TURTLEBOT_BASE kobuki)"/> <!-- create, roomba -->
   <arg name="battery"   value="$(optenv TURTLEBOT_BATTERY /proc/acpi/battery/BAT0)"/>  <!-- /proc/acpi/battery/BAT0 --> 
   <arg name="gui" default="true"/>
@@ -28,6 +28,9 @@
     <param name="publish_frequency" type="double" value="30.0" />
   </node>
   
+  <!-- Rectified depth image -->
+  <include file="$(find image_rectification)/launch/rectification.launch"/>  
+
   <!-- Fake laser -->
   <node pkg="nodelet" type="nodelet" name="laserscan_nodelet_manager" args="manager" output="screen"/>
   <node pkg="nodelet" type="nodelet" name="depthimage_to_laserscan"
@@ -36,7 +39,8 @@
     <param name="output_frame_id" value="/camera_depth_frame"/>
     <param name="range_min" value="0.45"/>
     <param name="range_max" value="6.0"/> <!-- Default=10.0-->
-    <remap from="image" to="/camera/depth/image_raw"/>
+    <!--remap from="image" to="/camera/depth/image_raw"/-->
+    <remap from="image" to="/image_rectification/depth_image"/>
     <remap from="scan" to="/scan"/>
   </node>
 </launch>
