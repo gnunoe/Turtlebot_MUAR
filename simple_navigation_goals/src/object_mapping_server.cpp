@@ -96,19 +96,20 @@ public:
     //get parameters of the found object
     object_parameters(goal->id);
     ROS_INFO("The object found whose id is %i corresponds to the %s %s",goal->id, color.c_str(), model.c_str());
+    //ROS_INFO("Sending goals %f, %f, %f...", goal->pos_x, goal->pos_y, goal->pos_z);
 
     //create message to visualize the object
     visualization_msgs::Marker marker;
-    marker.header.frame_id = "base_footprint"; 
+    marker.header.frame_id = "map"; 
     marker.header.stamp = ros::Time();
     //marker.ns = "my_namespace";
     marker.id = goal->id;
     marker.type = visualization_msgs::Marker::MESH_RESOURCE;
     visualization_msgs::Marker::MESH_RESOURCE;
     marker.action = visualization_msgs::Marker::ADD; 
-    marker.pose.position.x = goal->id; 
-    marker.pose.position.y = 1;
-    marker.pose.position.z = 0.5;
+    marker.pose.position.x = goal->pos_x; 
+    marker.pose.position.y = goal->pos_y;
+    marker.pose.position.z = goal->pos_z;
     marker.pose.orientation.x = -0.707;
     marker.pose.orientation.y = 0.0;
     marker.pose.orientation.z = 0.0;

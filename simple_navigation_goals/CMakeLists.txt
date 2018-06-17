@@ -13,6 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   actionlib_msgs
+  tf
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -56,10 +58,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-#add_service_files(   
-#  FILES
-#  ObjectRVIZMapping.srv
-#)
+add_service_files(   
+  FILES
+   getWorldPose.srv
+)
 
 ## Generate actions in the 'action' folder
 add_action_files(
@@ -106,7 +108,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES simple_navigation_goals
-   CATKIN_DEPENDS actionlib move_base_msgs roscpp actionlib_msgs
+   CATKIN_DEPENDS actionlib move_base_msgs roscpp actionlib_msgs darknet_ros_msgs
 #  DEPENDS system_lib
 )
 
@@ -138,6 +140,9 @@ include_directories(
 add_executable(simple_navigation_goals src/simple_navigation_goals.cpp)
 target_link_libraries(simple_navigation_goals ${catkin_LIBRARIES})
 
+add_executable(simple_camera_goals src/simple_camera_goals.cpp)
+target_link_libraries(simple_camera_goals ${catkin_LIBRARIES})
+
 add_executable(scheduler src/scheduler.cpp)
 target_link_libraries(scheduler ${catkin_LIBRARIES})
 
@@ -151,6 +156,10 @@ add_dependencies(object_mapping_server ${simple_navigation_goals_EXPORTED_TARGET
 add_executable(object_mapping_request src/object_mapping_request.cpp)
 target_link_libraries(object_mapping_request ${catkin_LIBRARIES})
 add_dependencies(object_mapping_request ${simple_navigation_goals_EXPORTED_TARGETS})
+
+add_executable(tf_echo_map_camera src/tf_echo_map_camera.cpp)
+target_link_libraries(tf_echo_map_camera ${catkin_LIBRARIES})
+add_dependencies(tf_echo_map_camera ${simple_navigation_goals_EXPORTED_TARGETS})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

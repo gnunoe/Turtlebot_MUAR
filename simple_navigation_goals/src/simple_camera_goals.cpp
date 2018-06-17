@@ -10,12 +10,13 @@ int main(int argc, char** argv){
         exit(0);
     }
 
-  float pos_x = atof(argv[1]);
-  float pos_y = atof(argv[2]);
+  int pos_x = atoi(argv[1]);
+  int pos_y = atoi(argv[2]);
+  int pos_z = atoi(argv[3]);
   //ROS_INFO_STREAM("arg1= " << pos_x <<".");
   //ROS_INFO_STREAM("arg2= " << pos_y <<".");
 
-  ros::init(argc, argv, "simple_navigation_goals");
+  ros::init(argc, argv, "simple_camera_goals");
 
   //tell the action client that we want to spin a thread by default
   MoveBaseClient ac("move_base", true);
@@ -28,12 +29,13 @@ int main(int argc, char** argv){
   move_base_msgs::MoveBaseGoal goal;
 
   //we'll send a goal to the robot to move 1 meter forward
-  goal.target_pose.header.frame_id = "map";
+  goal.target_pose.header.frame_id = "base_link";
   goal.target_pose.header.stamp = ros::Time::now();
 
   //-16,16 for Aruco
   goal.target_pose.pose.position.x = pos_x;
   goal.target_pose.pose.position.y = pos_y;
+  goal.target_pose.pose.position.y = pos_z;
   goal.target_pose.pose.orientation.w = 1.0;
 
   ROS_INFO("Sending goal");
