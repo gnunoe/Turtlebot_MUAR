@@ -9,6 +9,7 @@
 #include "gazebo_msgs/ModelStates.h"
 #include "gazebo_msgs/ApplyBodyWrench.h"
 #include "gazebo_msgs/SetModelState.h"
+#include "gazebo_msgs/GetModelState.h"
 #include <iostream>
 #include <algorithm>
 #include <string>
@@ -96,9 +97,9 @@ void coinCallback(const gazebo_msgs::ContactsState::ConstPtr& msg)
 
           gazebo_msgs::DeleteModel srv;
           srv.request.model_name = collision[i];
-          //ROS_INFO("CONTACT COIN!: %s", collision[i].c_str());
+          ROS_INFO("CONTACT COIN!: %s", collision[i].c_str());
 
-          //ROS_INFO("CURRENT SCORE!: %f", global_coin_count+global_bomb_count);
+          ROS_INFO("CURRENT SCORE!: %f", global_coin_count+global_bomb_count);
 
           ros::service::call("/gazebo/delete_model", srv);
         }
@@ -137,9 +138,9 @@ void bombCallback(const gazebo_msgs::ContactsState::ConstPtr& msg)
 
           gazebo_msgs::DeleteModel srv;
           srv.request.model_name = collision[i];
-          //ROS_INFO("CONTACT BOMB: %s", collision[i].c_str());
+          ROS_INFO("CONTACT BOMB: %s", collision[i].c_str());
 
-          //ROS_INFO("CURRENT SCORE!: %f", global_coin_count+global_bomb_count);
+          ROS_INFO("CURRENT SCORE!: %f", global_coin_count+global_bomb_count);
           ros::service::call("/gazebo/delete_model", srv);
         }
       }
@@ -175,26 +176,26 @@ int main(int argc, char **argv)
 
   std::string coin_directory = "/coin/model.sdf";
   std::string bomb_directory = "/bomb/model.sdf";
-  std::string barrier_1_directory = "/barrier_1/model.sdf";
-  std::string barrier_2_directory = "/barrier_2/model.sdf";
-  std::string barrier_3_directory = "/barrier_3/model.sdf";
-  std::string airplane_blue_directory = "/airplane_blue/model.sdf";
-  std::string airplane_green_directory = "/airplane_green/model.sdf";
-  std::string airplane_red_directory = "/airplane_red/model.sdf";
+  std::string barrier_1_directory = ModelDirectory + "/barrier_1/model.sdf";
+  std::string barrier_2_directory = ModelDirectory + "/barrier_2/model.sdf";
+  std::string barrier_3_directory = ModelDirectory + "/barrier_3/model.sdf";
+  std::string airplane_blue_directory = ModelDirectory + "/airplane_blue/model.sdf";
+  std::string airplane_green_directory = ModelDirectory + "/airplane_green/model.sdf";
+  std::string airplane_red_directory = ModelDirectory + "/airplane_red/model.sdf";
 
-  std::string bike_blue_directory = "/bike_blue/model.sdf";
-  std::string bike_green_directory = "/bike_green/model.sdf";
-  std::string bike_red_directory = "/bike_red/model.sdf";
+  std::string bike_blue_directory = ModelDirectory + "/bike_blue/model.sdf";
+  std::string bike_green_directory = ModelDirectory + "/bike_green/model.sdf";
+  std::string bike_red_directory =  ModelDirectory + "/bike_red/model.sdf";
 
-  std::string boat_blue_directory = "/boat_blue/model.sdf";
-  std::string boat_green_directory = "/boat_green/model.sdf";
-  std::string boat_red_directory = "/boat_red/model.sdf";
+  std::string boat_blue_directory = ModelDirectory + "/boat_blue/model.sdf";
+  std::string boat_green_directory = ModelDirectory + "/boat_green/model.sdf";
+  std::string boat_red_directory = ModelDirectory + "/boat_red/model.sdf";
 
-  std::string bottle_blue_directory = "/bottle_blue/model.sdf";
-  std::string bottle_green_directory = "/bottle_green/model.sdf";
-  std::string bottle_red_directory = "/bottle_red/model.sdf";
+  std::string bottle_blue_directory = ModelDirectory + "/bottle_blue/model.sdf";
+  std::string bottle_green_directory = ModelDirectory + "/bottle_green/model.sdf";
+  std::string bottle_red_directory = ModelDirectory + "/bottle_red/model.sdf";
 
-  std::string aruco1_directory = "/aruco_cube/model_1.sdf";
+  /*std::string aruco1_directory = "/aruco_cube/model_1.sdf";
   std::string aruco2_directory = "/aruco_cube/model_2.sdf";
   std::string aruco3_directory = "/aruco_cube/model_3.sdf";
   std::string aruco4_directory = "/aruco_cube/model_4.sdf";
@@ -205,7 +206,20 @@ int main(int argc, char **argv)
   std::string aruco9_directory = "/aruco_cube/model_9.sdf";
   std::string aruco10_directory = "/aruco_cube/model_10.sdf";
   std::string aruco11_directory = "/aruco_cube/model_11.sdf";
-  std::string aruco12_directory = "/aruco_cube/model_12.sdf";
+  std::string aruco12_directory = "/aruco_cube/model_12.sdf";*/
+
+  std::string aruco1_directory = ModelDirectory + "/aruco_cube/model_1.sdf";
+  std::string aruco2_directory = ModelDirectory + "/aruco_cube/model_2.sdf";
+  std::string aruco3_directory = ModelDirectory + "/aruco_cube/model_3.sdf";
+  std::string aruco4_directory = ModelDirectory + "/aruco_cube/model_4.sdf";
+  std::string aruco5_directory = ModelDirectory + "/aruco_cube/model_5.sdf";
+  std::string aruco6_directory = ModelDirectory + "/aruco_cube/model_6.sdf";
+  std::string aruco7_directory = ModelDirectory + "/aruco_cube/model_7.sdf";
+  std::string aruco8_directory = ModelDirectory + "/aruco_cube/model_8.sdf";
+  std::string aruco9_directory = ModelDirectory + "/aruco_cube/model_9.sdf";
+  std::string aruco10_directory = ModelDirectory + "/aruco_cube/model_10.sdf";
+  std::string aruco11_directory = ModelDirectory + "/aruco_cube/model_11.sdf";
+  std::string aruco12_directory = ModelDirectory + "/aruco_cube/model_12.sdf";
 
 
   //Model SDF parameter Input
@@ -213,7 +227,7 @@ int main(int argc, char **argv)
   ss_coin << ModelDirectory << coin_directory;
   std::string coin = ss_coin.str();
   std::ifstream in(coin.c_str());
-  ROS_INFO("I Spawned: %s", coin.c_str());
+  //ROS_INFO("I Spawned: %s", coin.c_str());
   
 
   std::stringstream ss_bomb;
@@ -222,27 +236,27 @@ int main(int argc, char **argv)
   std::ifstream in_bomb(bomb.c_str());
 
 
-    std::ifstream in_walls_1("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/barrier_1/model.sdf");
-  std::ifstream in_walls_2("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/barrier_2/model.sdf");
-  std::ifstream in_walls_3("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/barrier_3/model.sdf");
+  std::ifstream in_walls_1(barrier_1_directory.c_str());
+  std::ifstream in_walls_2(barrier_2_directory.c_str());
+  std::ifstream in_walls_3(barrier_3_directory.c_str());
 
-  std::ifstream in_obj_1("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/airplane_blue/model.sdf");
-  std::ifstream in_obj_2("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/airplane_green/model.sdf");
-  std::ifstream in_obj_3("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/airplane_red/model.sdf");
+  std::ifstream in_obj_1(airplane_blue_directory.c_str());
+  std::ifstream in_obj_2(airplane_green_directory.c_str());
+  std::ifstream in_obj_3(airplane_red_directory.c_str());
 
-  std::ifstream in_obj_4("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/bike_blue/model.sdf");
-  std::ifstream in_obj_5("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/bike_green/model.sdf");
-  std::ifstream in_obj_6("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/bike_red/model.sdf");
+  std::ifstream in_obj_4(bike_blue_directory.c_str());
+  std::ifstream in_obj_5(bike_green_directory.c_str());
+  std::ifstream in_obj_6(bike_red_directory.c_str());
 
-  std::ifstream in_obj_7("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/boat_blue/model.sdf");
-  std::ifstream in_obj_8("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/boat_green/model.sdf");
-  std::ifstream in_obj_9("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/boat_red/model.sdf");
+  std::ifstream in_obj_7(boat_blue_directory.c_str());
+  std::ifstream in_obj_8(boat_green_directory.c_str());
+  std::ifstream in_obj_9(boat_red_directory.c_str());
 
-  std::ifstream in_obj_10("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/bottle_blue/model.sdf");
-  std::ifstream in_obj_11("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/bottle_green/model.sdf");
-  std::ifstream in_obj_12("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/bottle_red/model.sdf");
+  std::ifstream in_obj_10(bottle_blue_directory.c_str());
+  std::ifstream in_obj_11(bottle_green_directory.c_str());
+  std::ifstream in_obj_12(bottle_red_directory.c_str());
 
-  std::ifstream info_point_1("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/aruco_cube/model_1.sdf");
+  /*std::ifstream info_point_1("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/aruco_cube/model_1.sdf");
   std::ifstream info_point_2("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/aruco_cube/model_2.sdf");
   std::ifstream info_point_3("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/aruco_cube/model_3.sdf");
   std::ifstream info_point_4("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/aruco_cube/model_4.sdf");
@@ -253,8 +267,20 @@ int main(int argc, char **argv)
   std::ifstream info_point_9("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/aruco_cube/model_9.sdf");
   std::ifstream info_point_10("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/aruco_cube/model_10.sdf");
   std::ifstream info_point_11("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/aruco_cube/model_11.sdf");
-  std::ifstream info_point_12("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/aruco_cube/model_12.sdf");
+  std::ifstream info_point_12("/home/gonzalo/catkin_ws/src/labrob_gazebo/models/aruco_cube/model_12.sdf");*/
 
+  std::ifstream info_point_1(aruco1_directory.c_str());
+  std::ifstream info_point_2(aruco2_directory.c_str());
+  std::ifstream info_point_3(aruco3_directory.c_str());
+  std::ifstream info_point_4(aruco4_directory.c_str());
+  std::ifstream info_point_5(aruco5_directory.c_str());
+  std::ifstream info_point_6(aruco6_directory.c_str());
+  std::ifstream info_point_7(aruco7_directory.c_str());
+  std::ifstream info_point_8(aruco8_directory.c_str());
+  std::ifstream info_point_9(aruco9_directory.c_str());
+  std::ifstream info_point_10(aruco10_directory.c_str());
+  std::ifstream info_point_11(aruco11_directory.c_str());
+  std::ifstream info_point_12(aruco12_directory.c_str());
 
   std::stringstream buffer;
   std::stringstream buffer_bomb;
@@ -322,6 +348,7 @@ int main(int argc, char **argv)
 
   gazebo_msgs::SpawnModel spawn;
   gazebo_msgs::SetModelState coin_state_set;
+  gazebo_msgs::GetModelState coin_state_get;
   gazebo_msgs::SetModelState state_set;
   std::string coin_id_pref = "coin_";
   std::string bomb_id_pref = "bomb_";
@@ -1068,7 +1095,7 @@ int main(int argc, char **argv)
     ros::service::call("/gazebo/spawn_sdf_model", spawn);
     info_id.clear();
 
-
+/*
   int myints[]= {0,1,2,3,4,5,6,7,8,9,10,11};
   std::vector<int> obj_vector;
   std::list<int> mylist (myints,myints+12);
@@ -1105,7 +1132,7 @@ int main(int argc, char **argv)
 
   ros::service::call("/gazebo/delete_model", srv);
 
-
+*/
 
 
   /**
@@ -1136,7 +1163,9 @@ int main(int argc, char **argv)
     p << coin_id << coin_body_suff;
     std::string coin_body = p.str();
     coin_state_set.request.model_state.model_name = coin_id;
-    coin_state_set.request.model_state.twist.angular.z = 5;
+    coin_state_set.request.model_state.twist.angular.z = 0;
+    //ROS_INFO("POS [%f, %f]", coin_state_get.request[coin_id].pose.position.x,
+    //                         coin_state_get.request[coin_id].pose.position.y);
     ros::service::call("/gazebo/set_model_state", coin_state_set);
     coin_id.clear();
     ros::Duration(0.4).sleep();
