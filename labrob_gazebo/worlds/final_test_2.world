@@ -2929,7 +2929,7 @@
       </link>
       <pose frame=''>5.27509 7.38572 0 0 -0 -3.02652</pose>
     </model>
-    <model name='coin'>
+    <model name='coin_7'>
       <link name='chassis'>
         <pose frame=''>0 0 0.26 0 -0 0</pose>
         <collision name='box_collision'>
@@ -3098,7 +3098,7 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='coin'>
+      <model name='coin_7'>
         <pose frame=''>-1.20445 -0.771515 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='chassis'>
