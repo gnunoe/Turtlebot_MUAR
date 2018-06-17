@@ -249,7 +249,8 @@ void scheduler::aruco_pose_Callback(const geometry_msgs::Pose::ConstPtr& msg)
 void scheduler::yolo_obj_found_Callback(const darknet_ros_msgs::BoundingBoxes::ConstPtr& msg)
 {
   //ROS_INFO("%i objects found", num_obj_found);
-  int local_id=0;
+  int local_id = 0;
+  int arr_ind = 0;
   for (int i = 0; i < msg->bounding_boxes.size(); i++) 
   {
     //object found
@@ -261,7 +262,7 @@ void scheduler::yolo_obj_found_Callback(const darknet_ros_msgs::BoundingBoxes::C
           && !isnan(msg->bounding_boxes[i].Z) && msg->bounding_boxes[i].probability >=0.3)
       {
         local_id = get_object_ID(msg->bounding_boxes[i].Class);
-        int arr_ind = local_id - 1;
+        arr_ind = local_id - 1;
         switch((int)obj_pos[arr_ind][0])
         {
           case 0: //First entry of the object
@@ -482,7 +483,7 @@ int main(int argc, char** argv){
   //start navigation 
   //system("rosrun simple_navigation_goals simple_navigation_goals -17 17"); 
 
-  scheduler.send_nav_goal(scheduler.aruco_pose[0], scheduler.aruco_pose[0]);
+  scheduler.send_nav_goal(scheduler.aruco_pose[0], scheduler.aruco_pose[1]);
 
   ros::Rate loop_rate(10);
 
